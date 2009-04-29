@@ -18,7 +18,7 @@ BEGIN { use_ok 'MooseX::AttributeInflate' }
 
     has 'document' => (
         is => 'ro', isa => 'MyClass::Document',
-        traits => [qw(AttributeInflate)],
+        traits => [qw/Inflated/],
     );
 }
 
@@ -91,6 +91,6 @@ throws_ok {
 
     has 'name' => (
         is => 'rw', isa => 'Str',
-        traits => [qw/AttributeInflate/],
+        traits => [qw/Inflated/],
     );
 } qr/subtype of Object/, "can't inflate a non-Object";

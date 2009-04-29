@@ -26,7 +26,7 @@ Perhaps a little code snippet.
 
     has 'helper' => (
         is => 'ro', isa => 'MyHelper',
-        traits => [qw/AttributeInflate/],
+        traits => [qw/Inflated/],
         # inflate_args => [],
         # inflate_ctor => 'new',
     );
@@ -91,7 +91,7 @@ under the same terms as Perl itself.
 
 =cut
 
-package MooseX::Meta::Attribute::Trait::AttributeInflate;
+package MooseX::Meta::Attribute::Trait::Inflated;
 use Moose::Role;
 use Moose::Util::TypeConstraints ();
 
@@ -134,8 +134,8 @@ around 'legal_options_for_inheritance' => sub {
 no Moose::Role;
 
 package # happy PAUSE
-    Moose::Meta::Attribute::Custom::Trait::AttributeInflate;
-sub register_implementation { 'MooseX::Meta::Attribute::Trait::AttributeInflate' }
+    Moose::Meta::Attribute::Custom::Trait::Inflated;
+sub register_implementation { 'MooseX::Meta::Attribute::Trait::Inflated' }
 
 
 1;
