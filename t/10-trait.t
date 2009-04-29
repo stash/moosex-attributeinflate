@@ -4,7 +4,9 @@ use strict;
 use Test::More tests => 12;
 use Test::Exception;
 
-BEGIN { use_ok 'MooseX::AttributeInflate' }
+BEGIN {
+    require_ok 'MooseX::AttributeInflate';
+}
 
 {
     package MyClass::Document;
