@@ -4,7 +4,7 @@ use strict;
 
 =head1 NAME
 
-MooseX::AttributeInflate - Auto-inflate your Moose attributes
+MooseX::AttributeInflate - Auto-inflate your Moose attribute objects
 
 =head1 VERSION
 
