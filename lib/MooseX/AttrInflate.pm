@@ -4,7 +4,7 @@ use strict;
 
 =head1 NAME
 
-MooseX::AttrInflate - Auto-inflate your attributes
+MooseX::AttrInflate - Auto-inflate your Moose attributes
 
 =head1 VERSION
 
@@ -36,7 +36,7 @@ Perhaps a little code snippet.
 
 =head1 AUTHOR
 
-Stash, C<< <jstash at gmail.com> >>
+Stash <jstash+cpan@gmail.com>
 
 =head1 BUGS
 
