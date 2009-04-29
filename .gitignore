@@ -8,3 +8,4 @@ pm_to_blib*
 .lwpcookies
 MooseX-AttrInflate-*
 cover_db
+META.yml
