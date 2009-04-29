@@ -1,6 +1,24 @@
 package MooseX::AttributeInflate;
 use warnings;
 use strict;
+use Moose ();
+use Moose::Exporter ();
+
+our $VERSION = '0.01';
+
+Moose::Exporter->setup_import_methods(
+    with_caller => ['has_inflated'],
+    also => 'Moose',
+);
+
+sub has_inflated {
+    my $caller = shift;
+    my $name = shift;
+    my %options = @_;
+    $options{traits} ||= [];
+    unshift @{$options{traits}}, 'Inflated';
+    Class::MOP::Class->initialize($caller)->add_attribute($name, %options);
+}
 
 =head1 NAME
 
