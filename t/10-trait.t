@@ -1,7 +1,7 @@
 #!perl
 use warnings;
 use strict;
-use Test::More tests => 11;
+use Test::More tests => 12;
 use Test::Exception;
 
 BEGIN { use_ok 'MooseX::AttributeInflate' }
@@ -84,7 +84,7 @@ construct_method: {
     is_deeply $doc, [qw(here it is)];
 }
 
-throws_ok {
+non_object: throws_ok {
     package WTF;
     use Moose;
     use MooseX::AttributeInflate;
@@ -94,3 +94,14 @@ throws_ok {
         traits => [qw/Inflated/],
     );
 } qr/subtype of Object/, "can't inflate a non-Object";
+
+is_object: throws_ok {
+    package WTF;
+    use Moose;
+    use MooseX::AttributeInflate;
+
+    has 'name' => (
+        is => 'rw', isa => 'Object',
+        traits => [qw/Inflated/],
+    );
+} qr/subtype of Object/, "can't inflate a direct Object";
