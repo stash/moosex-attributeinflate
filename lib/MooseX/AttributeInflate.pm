@@ -28,29 +28,57 @@ MooseX::AttributeInflate - Auto-inflate your Moose attribute objects
 
 Version 0.01
 
-=cut
-
-our $VERSION = '0.01';
-
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
+Lazily constructs ("inflates") an object attribute, optionally using constant
+parameters.
 
     package MyClass;
-    use Moose;
     use MooseX::AttributeInflate;
+
+    has_inflated 'helper' => (
+        is => 'ro', isa => 'MyHelper'
+    );
+
+    # OR, explicitly
 
     has 'helper' => (
         is => 'ro', isa => 'MyHelper',
         traits => [qw/Inflated/],
-        # inflate_args => [],
-        # inflate_ctor => 'new',
+        inflate_args => [],
+        inflate_method => 'new',
     );
 
     my $obj = MyClass->new();
     $obj->helper->help();
+
+=head1 DESCRIPTION
+
+Installs a C<default> for this accessor that calls the constructor for the
+specified Object type.  Also turns on C<lazy>.
+
+If a type that is not a sub-type of Object is specified, an exception is
+thrown.
+
+=head1 EXPORTS
+
+=head2 has_inflated
+
+Just like Moose's C<has>, but prepends the trait C<Inflated>.
+
+Additional options:
+
+=over 4
+
+=item inflate_method
+
+The name of the constructor to use. Defaults to 'new'.
+
+=item inflate_args
+
+The arguments to pass to the constructor.  Defaults to an empty list.
+
+=back
 
 =head1 AUTHOR
 
@@ -61,9 +89,6 @@ Stash <jstash+cpan@gmail.com>
 Please report any bugs or feature requests to C<bug-moosex-attrinflate at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-AttributeInflate>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
-
-
-
 
 =head1 SUPPORT
 
@@ -114,12 +139,12 @@ use Moose::Role;
 use Moose::Util::TypeConstraints ();
 
 has 'inflate_args' => (is => 'rw', isa => 'ArrayRef', predicate => 'has_inflate_args' );
-has 'inflate_ctor' => (is => 'rw', isa => 'Str', default => 'new');
+has 'inflate_method' => (is => 'rw', isa => 'Str', default => 'new');
 
 sub inflate {
     my $self = shift;
     my $class = $self->type_constraint->name;
-    my $ctor = $self->inflate_ctor;
+    my $ctor = $self->inflate_method;
     return $class->$ctor($self->has_inflate_args ? @{$self->inflate_args} : ());
 }
 
@@ -145,7 +170,7 @@ around 'new' => sub {
 around 'legal_options_for_inheritance' => sub {
     my $code = shift;
     my $self = shift;
-    return ($self->$code(@_), 'inflate_args', 'inflate_ctor')
+    return ($self->$code(@_), 'inflate_args', 'inflate_method')
 };
 
 

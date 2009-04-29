@@ -71,7 +71,7 @@ construct_args: {
 
     has '+document' => (
         isa => 'NonMoose',
-        inflate_ctor => 'buildit',
+        inflate_method => 'buildit',
         inflate_args => [qw(here it is)]
     );
 }
