@@ -1,10 +1,10 @@
-package MooseX::AttrInflate;
+package MooseX::AttributeInflate;
 use warnings;
 use strict;
 
 =head1 NAME
 
-MooseX::AttrInflate - Auto-inflate your Moose attributes
+MooseX::AttributeInflate - Auto-inflate your Moose attributes
 
 =head1 VERSION
 
@@ -22,11 +22,11 @@ Perhaps a little code snippet.
 
     package MyClass;
     use Moose;
-    use MooseX::AttrInflate;
+    use MooseX::AttributeInflate;
 
     has 'helper' => (
         is => 'ro', isa => 'MyHelper',
-        traits => [qw/AttrInflate/],
+        traits => [qw/AttributeInflate/],
         # inflate_args => [],
         # inflate_ctor => 'new',
     );
@@ -41,7 +41,7 @@ Stash <jstash+cpan@gmail.com>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-moosex-attrinflate at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-AttrInflate>.  I will be notified, and then you'll
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-AttributeInflate>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -51,7 +51,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc MooseX::AttrInflate
+    perldoc MooseX::AttributeInflate
 
 
 You can also look for information at:
@@ -60,19 +60,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-AttrInflate>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-AttributeInflate>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/MooseX-AttrInflate>
+L<http://annocpan.org/dist/MooseX-AttributeInflate>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/MooseX-AttrInflate>
+L<http://cpanratings.perl.org/d/MooseX-AttributeInflate>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/MooseX-AttrInflate>
+L<http://search.cpan.org/dist/MooseX-AttributeInflate>
 
 =back
 
@@ -91,7 +91,7 @@ under the same terms as Perl itself.
 
 =cut
 
-package MooseX::Meta::Attribute::Trait::AttrInflate;
+package MooseX::Meta::Attribute::Trait::AttributeInflate;
 use Moose::Role;
 use Moose::Util::TypeConstraints ();
 
@@ -134,8 +134,8 @@ around 'legal_options_for_inheritance' => sub {
 no Moose::Role;
 
 package # happy PAUSE
-    Moose::Meta::Attribute::Custom::Trait::AttrInflate;
-sub register_implementation { 'MooseX::Meta::Attribute::Trait::AttrInflate' }
+    Moose::Meta::Attribute::Custom::Trait::AttributeInflate;
+sub register_implementation { 'MooseX::Meta::Attribute::Trait::AttributeInflate' }
 
 
 1;

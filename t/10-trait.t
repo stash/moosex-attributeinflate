@@ -4,7 +4,7 @@ use strict;
 use Test::More tests => 11;
 use Test::Exception;
 
-BEGIN { use_ok 'MooseX::AttrInflate' }
+BEGIN { use_ok 'MooseX::AttributeInflate' }
 
 {
     package MyClass::Document;
@@ -14,11 +14,11 @@ BEGIN { use_ok 'MooseX::AttrInflate' }
 
     package MyClass;
     use Moose;
-    use MooseX::AttrInflate;
+    use MooseX::AttributeInflate;
 
     has 'document' => (
         is => 'ro', isa => 'MyClass::Document',
-        traits => [qw(AttrInflate)],
+        traits => [qw(AttributeInflate)],
     );
 }
 
@@ -35,7 +35,7 @@ happy_path: {
 {
     package MyClass2;
     use Moose;
-    use MooseX::AttrInflate;
+    use MooseX::AttributeInflate;
     extends 'MyClass';
 
     has '+document' => (
@@ -64,7 +64,7 @@ construct_args: {
 
     package MyClass3;
     use Moose;
-    use MooseX::AttrInflate;
+    use MooseX::AttributeInflate;
     extends 'MyClass';
 
     has '+document' => (
@@ -87,10 +87,10 @@ construct_method: {
 throws_ok {
     package WTF;
     use Moose;
-    use MooseX::AttrInflate;
+    use MooseX::AttributeInflate;
 
     has 'name' => (
         is => 'rw', isa => 'Str',
-        traits => [qw/AttrInflate/],
+        traits => [qw/AttributeInflate/],
     );
 } qr/subtype of Object/, "can't inflate a non-Object";

@@ -2,7 +2,8 @@ Changes
 MANIFEST
 Makefile.PL
 README
-lib/MooseX/AttrInflate.pm
+lib/MooseX/AttributeInflate.pm
 t/00-load.t
+t/10-trait.t
 t/pod-coverage.t
 t/pod.t

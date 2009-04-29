@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-	use_ok( 'MooseX::AttrInflate' );
+	use_ok( 'MooseX::AttributeInflate' );
 }
 
-diag( "Testing MooseX::AttrInflate $MooseX::AttrInflate::VERSION, Perl $], $^X" );
+diag( "Testing MooseX::AttributeInflate $MooseX::AttributeInflate::VERSION, Perl $], $^X" );
