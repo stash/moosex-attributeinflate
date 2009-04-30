@@ -1,0 +1,18 @@
+Source: libmoosex-attributeinflate-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7), libtest-exception-perl
+Maintainer: Jeremy Stashewsky <stash@topaz.socialtext.net>
+Standards-Version: 3.6.1
+
+Package: libmoosex-attributeinflate-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, libmoose-perl (>= 0.72)
+Description: Auto-inflate your Moose attribute objects
+ For each attribute defined with has_inflated, this module overrides the
+ default for that attribute, calling instead that attribute's type's
+ constructor.
+ .
+ Alternatively, you may use the attribute trait Inflated to compose an
+ attribute with other attribute trais.

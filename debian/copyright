@@ -1,0 +1,8 @@
+This is the debian package for the MooseX-AttributeInflate module.
+It was created by Jeremy Stashewsky <stash@topaz.socialtext.net> using dh-make-perl.
+
+This copyright info was automatically extracted from the perl module.
+It may not be accurate, so you better check the module sources
+if don't want to get into legal troubles.
+
+The upstream author is: Stash <jstash+cpan@gmail.com>.
