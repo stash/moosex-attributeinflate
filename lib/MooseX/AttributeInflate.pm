@@ -54,21 +54,43 @@ parameters.
 
 =head1 DESCRIPTION
 
-Installs a C<default> for this accessor that calls the constructor for the
-specified Object type.  Also turns on C<lazy>.
+For each attribute defined with L<has_inflated>, this module overrides the
+C<default> for that attribute, calling instead that attribute's type's
+constructor.  The construction is done lazily unless overriden with 
+C<< lazy => 0 >>.
 
-If a type that is not a sub-type of Object is specified, an exception is
-thrown.
+See L<has_inflated> for options and more detail.
+
+Construction only works with objects; an exception will be thrown if the
+C<isa> type of this attribute is not a decendant of C<Object> (this includes
+C<ArrayRef> and C<HashRef> types).
+
+Alternatively, you may use the attribute trait C<Inflated> to compose an
+attribute with other attribute trais.
 
 =head1 EXPORTS
 
 =head2 has_inflated
 
-Just like Moose's C<has>, but prepends the trait C<Inflated>.
+Just like Moose's C<has>, but applies the attribute trait C<Inflated> and
+defaults C<lazy> to be on.
+
+If C<lazy_build> is defined, the canonical build method (e.g.
+C<_build_helper>) B<IS NOT> called.  Otherwise, C<lazy_build> works as usual,
+setting C<required> and installing a clearer and predicate.
 
 Additional options:
 
 =over 4
+
+=item lazy
+
+Defaults on, but can be turned off with C<< lazy => 0 >>.
+
+=item lazy_build
+
+Just like L<Moose>'s C<lazy_build>, but does not call the canonical builder
+method (e.g. C<_build_$name>).
 
 =item inflate_method
 
