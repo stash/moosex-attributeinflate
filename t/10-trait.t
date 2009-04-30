@@ -1,7 +1,7 @@
 #!perl
 use warnings;
 use strict;
-use Test::More tests => 12;
+use Test::More tests => 26;
 use Test::Exception;
 
 BEGIN {
@@ -107,3 +107,46 @@ is_object: throws_ok {
         traits => [qw/Inflated/],
     );
 } qr/subtype of Object/, "can't inflate a direct Object";
+
+
+{
+    package MyLazyClass;
+    use Moose;
+    use MooseX::AttributeInflate;
+
+    has 'doc1' => (
+        is => 'ro', isa => 'MyClass::Document',
+        traits => [qw/Inflated/],
+        lazy_build => 1,
+        default => sub { die 'should be overriden' },
+    );
+    has 'doc2' => (
+        is => 'ro', isa => 'MyClass::Document',
+        traits => [qw/Inflated/],
+        lazy_build => 1,
+        predicate => 'gots_doc2',
+        clearer => 'scrub_doc2',
+    );
+}
+
+lazy_build: {
+    my $o = MyLazyClass->new;
+
+    isa_ok $o => 'MyLazyClass', 'created MyLazyClass';
+    ok $o->can('has_doc1'), 'standard predicate installed';
+    ok $o->can('clear_doc1'), 'standard clearer installed';
+    ok !$o->has_doc1;
+    lives_ok { $o->doc1 } 'overrode the default';
+    ok $o->doc1;
+    ok $o->has_doc1;
+    $o->clear_doc1;
+    ok !$o->has_doc1, 'std clearer/predicate work';
+
+    ok $o->can('gots_doc2'), 'alt predicate installed';
+    ok $o->can('scrub_doc2'), 'alt clearer installed';
+    ok !$o->gots_doc2;
+    ok $o->doc2->text;
+    ok $o->gots_doc2;
+    $o->scrub_doc2;
+    ok !$o->gots_doc2, 'alt clearer/predicate work';
+}

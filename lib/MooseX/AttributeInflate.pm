@@ -126,11 +126,11 @@ L<http://search.cpan.org/dist/MooseX-AttributeInflate>
 =head1 COPYRIGHT & LICENSE
 
 Copyright 2009 Jeremy Stashewsky
+
 Copyright 2009 Socialtext Inc., all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
 
 =cut
 
@@ -138,8 +138,14 @@ package MooseX::Meta::Attribute::Trait::Inflated;
 use Moose::Role;
 use Moose::Util::TypeConstraints ();
 
-has 'inflate_args' => (is => 'rw', isa => 'ArrayRef', predicate => 'has_inflate_args' );
-has 'inflate_method' => (is => 'rw', isa => 'Str', default => 'new');
+has 'inflate_args' => (
+    is => 'rw', isa => 'ArrayRef',
+    predicate => 'has_inflate_args'
+);
+has 'inflate_method' => (
+    is => 'rw', isa => 'Str',
+    default => 'new'
+);
 
 sub inflate {
     my $self = shift;
@@ -155,8 +161,26 @@ around 'new' => sub {
     my $name = shift;
     my %options = @_;
 
-    $options{lazy} = 1;
-    $options{default} = sub { $_[0]->meta->get_attribute($name)->inflate() };
+    $options{lazy} = 1 unless exists $options{lazy};
+
+    if ($options{lazy_build}) {
+        delete $options{lazy_build};
+        delete $options{builder};
+        $options{lazy} = 1;
+        $options{required} = 1;
+        if ($name =~ /^_/) {
+            $options{predicate} ||= "_has$name";
+            $options{clearer} ||= "_clear$name";
+        }
+        else {
+            $options{predicate} ||= "has_$name";
+            $options{clearer} ||= "clear_$name";
+        }
+    }
+    $options{required} = 1;
+    $options{default} = sub {
+        $_[0]->meta->get_attribute($name)->inflate()
+    };
 
     my $self = $class->$code($name,%options);
 
@@ -179,6 +203,5 @@ no Moose::Role;
 package # happy PAUSE
     Moose::Meta::Attribute::Custom::Trait::Inflated;
 sub register_implementation { 'MooseX::Meta::Attribute::Trait::Inflated' }
-
 
 1;
