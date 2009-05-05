@@ -54,12 +54,12 @@ parameters.
 
 =head1 DESCRIPTION
 
-For each attribute defined with L<has_inflated>, this module overrides the
+For each attribute defined with L</has_inflated>, this module overrides the
 C<default> for that attribute, calling instead that attribute's type's
 constructor.  The construction is done lazily unless overriden with 
 C<< lazy => 0 >>.
 
-See L<has_inflated> for options and more detail.
+See L</has_inflated> for options and more detail.
 
 Construction only works with objects; an exception will be thrown if the
 C<isa> type of this attribute is not a decendant of C<Object> (this includes
@@ -73,7 +73,8 @@ attribute with other attribute trais.
 =head2 has_inflated
 
 Just like Moose's C<has>, but applies the attribute trait C<Inflated> and
-defaults C<lazy> to be on.
+defaults C<lazy> to be on.  See L<Moose/EXPORTED FUNCTIONS> for more detail on
+C<has>.
 
 If C<lazy_build> is defined, the canonical build method (e.g.
 C<_build_helper>) B<IS NOT> called.  Otherwise, C<lazy_build> works as usual,
@@ -102,6 +103,12 @@ The arguments to pass to the constructor.  Defaults to an empty list.
 
 =back
 
+=head1 SEE ALSO
+
+L<MooseX::CurriedHandles> - combine with this module for auto-inflating moose curry!
+
+L<http://github.com/stash/moosex-attributeinflate/> - Github repository
+
 =head1 AUTHOR
 
 Stash <jstash+cpan@gmail.com>
@@ -122,6 +129,10 @@ You can find documentation for this module with the perldoc command.
 You can also look for information at:
 
 =over 4
+
+=item * C<#moose> on irc.perl.org
+
+L<irc://irc.perl.org#moose>
 
 =item * RT: CPAN's request tracker
 
@@ -144,6 +155,9 @@ L<http://search.cpan.org/dist/MooseX-AttributeInflate>
 
 =head1 ACKNOWLEDGEMENTS
 
+C<konobi> for Meta-advice and CPAN help
+
+C<perigrin>, C<doy>, C<Sartak> and other C<#moose> folks for suggestions
 
 =head1 COPYRIGHT & LICENSE
 

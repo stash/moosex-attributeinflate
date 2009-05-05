@@ -13,3 +13,4 @@ debian/libmoosex-attributeinflate-perl.*
 debian/libmoosex-attributeinflate-perl/
 build-stamp
 install-stamp
+pod2htm*
