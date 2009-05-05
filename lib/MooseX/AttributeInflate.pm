@@ -4,7 +4,7 @@ use strict;
 use Moose ();
 use Moose::Exporter ();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 Moose::Exporter->setup_import_methods(
     with_caller => ['has_inflated'],
@@ -26,7 +26,7 @@ MooseX::AttributeInflate - Auto-inflate your Moose attribute objects
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 SYNOPSIS
 
