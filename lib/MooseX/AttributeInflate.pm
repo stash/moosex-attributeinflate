@@ -227,11 +227,13 @@ around 'new' => sub {
     return $self;
 };
 
-around 'legal_options_for_inheritance' => sub {
-    my $code = shift;
-    my $self = shift;
-    return ($self->$code(@_), 'inflate_args', 'inflate_method')
-};
+if ($Moose::VERSION < 1.09) {
+    around 'legal_options_for_inheritance' => sub {
+        my $code = shift;
+        my $self = shift;
+        return ($self->$code(@_), 'inflate_args', 'inflate_method')
+    };
+}
 
 
 no Moose::Role;
