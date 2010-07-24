@@ -4,7 +4,7 @@ use strict;
 use Moose ();
 use Moose::Exporter ();
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 Moose::Exporter->setup_import_methods(
     with_caller => ['has_inflated'],
@@ -26,7 +26,7 @@ MooseX::AttributeInflate - Auto-inflate your Moose attribute objects
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 SYNOPSIS
 
@@ -157,7 +157,7 @@ L<http://search.cpan.org/dist/MooseX-AttributeInflate>
 
 C<konobi> for Meta-advice and CPAN help
 
-C<perigrin>, C<doy>, C<Sartak> and other C<#moose> folks for suggestions
+C<perigrin>, C<doy>, C<Sartak> and other C<#moose> folks for suggestions & patches.
 
 =head1 COPYRIGHT & LICENSE
 

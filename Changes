@@ -1,5 +1,8 @@
 Revision history for MooseX-AttributeInflate
 
+0.03    July 24, 2010
+        "legal_options_for_inheritance" was changed in Moose 1.09. (thanks doy)
+
 0.02    May 5, 2009
         Fixed META.yml
 
